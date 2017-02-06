@@ -2,8 +2,9 @@
 
 use IteratorAggregate;
 use ArrayIterator;
+use JsonSerializable;
 
-class Collection implements IteratorAggregate
+class Collection implements IteratorAggregate, JsonSerializable
 {
 	protected $items = [];
 
@@ -34,5 +35,15 @@ class Collection implements IteratorAggregate
 	public function merge(Collection $collection)
 	{
 		return $this->add($collection->get());
+	}
+
+	public function toJson()
+	{
+		return json_encode($this->items);
+	}
+
+	public function jsonSerialize()
+	{
+		return $this->items;
 	}
 }

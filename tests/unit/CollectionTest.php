@@ -5,6 +5,7 @@ namespace App;
 use IteratorAggregate;
 use ArrayIterator;
 
+
 /**
  * add composers autoload
  */
@@ -90,6 +91,32 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 		$this->assertCount(4, $collection->get());
 		$this->assertEquals(4, $collection->count());
 
+	}
+
+	/** @test */
+	public function return_json_encoded_items()
+	{
+		$collection = new \App\Support\Collection([
+			['username' => 'billy'],
+			['username' => 'alan']
+		]);	
+
+		var_dump($collection->toJson());
+		$this->assertInternalType('string', $collection->toJson());
+		$this->assertEquals('[{"username":"billy"},{"username":"alan"}]', $collection->toJson());
+	}
+
+	/** @test */
+	public function json_encoding_a_collection_object_returns_json()
+	{
+		$collection = new \App\Support\Collection([
+			['username' => 'billy'],
+			['username' => 'alan']
+		]);
+
+		$encoded = json_encode($collection);
+		$this->assertInternalType('string', $encoded);
+		$this->assertEquals('[{"username":"billy"},{"username":"alan"}]', $encoded);		
 	}
 }
 
