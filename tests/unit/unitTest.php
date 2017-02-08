@@ -14,9 +14,11 @@ use App\Models\Cart;
 class UnitTest extends \PHPUnit_Framework_TestCase
 {
 
+	protected $cart;
+
 	public function setUp()
 	{
-		var_dump('setup test');
+		$this->cart = new Cart();
 	}
 
 	/**
@@ -24,27 +26,24 @@ class UnitTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function get_user_id()
 	{
-		$cart = new Cart();
-		$cart->setUserId(' 5 ');
-		$this->assertEquals($cart->getUserId(), 5);
+		$this->cart->setUserId(' 5 ');
+		$this->assertEquals($this->cart->getUserId(), 5);
 	}
 
 	public function testThatWeCanGetCartUserId()
 	{
-		$cart = new Cart();
-		$cart->setUserId(' 5 ');
-		$this->assertEquals($cart->getUserId(), 5);
+		$this->cart->setUserId(' 5 ');
+		$this->assertEquals($this->cart->getUserId(), 5);
 	}
 
 	public function testUserVariablesContainCorectContent()
 	{
-		$cart = new Cart();
-		$cart->setUserEmail('rafal@wp.pl');
-		$cart->setUserId(' 5 ');
+		$this->cart->setUserEmail('rafal@wp.pl');
+		$this->cart->setUserId(' 5 ');
 
-		$cartUserData = $cart->getUserData();
+		$cartUserData = $this->cart->getUserData();
 		$this->assertArrayHasKey('email', $cartUserData);
-		$this->assertEquals($cart->getUserId(), 5);
-		$this->assertEquals($cart->getUserEmail(), 'rafal@wp.pl');
+		$this->assertEquals($this->cart->getUserId(), 5);
+		$this->assertEquals($this->cart->getUserEmail(), 'rafal@wp.pl');
 	}
 }
